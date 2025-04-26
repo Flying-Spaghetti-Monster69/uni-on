@@ -1,7 +1,7 @@
-"use client"
+"use client";
 
-import Link from "next/link"
-import { Home, BookOpen, BarChart, User } from "lucide-react"
+import Link from "next/link";
+import { Home, BookOpen, BarChart, User } from "lucide-react";
 
 export function BottomNav() {
   return (
@@ -19,7 +19,7 @@ export function BottomNav() {
 
         <Link href="/" className="flex flex-col items-center text-teal-600">
           <BarChart className="h-5 w-5" />
-          <span className="text-xs mt-1">Progress</span>
+          <span className="text-xs mt-1">Status</span>
         </Link>
 
         <Link href="/" className="flex flex-col items-center text-teal-600">
@@ -28,5 +28,5 @@ export function BottomNav() {
         </Link>
       </div>
     </nav>
-  )
+  );
 }
