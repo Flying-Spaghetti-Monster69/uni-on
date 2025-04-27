@@ -7,7 +7,6 @@ import {
   CardHeader,
   CardTitle,
 } from "./ui/card";
-import { username } from "better-auth/plugins";
 
 const Insights = async ({
   mood,
