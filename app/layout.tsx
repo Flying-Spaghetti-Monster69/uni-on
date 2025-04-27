@@ -6,7 +6,7 @@ import { Inter } from "next/font/google";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "StudyWell - Student Wellbeing & Academic Tracker",
+  title: "UNI-ON - Student Wellbeing & Academic Tracker",
   description:
     "Track your psychological wellbeing and academic progress in one place",
   manifest: "/manifest.json",
