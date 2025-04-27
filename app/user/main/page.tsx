@@ -32,12 +32,16 @@ export default async function Home() {
         <header className="mb-6">
           <h1 className="text-2xl font-bold text-teal-700 mb-1">UNI-ON</h1>
           <p className="text-blue-600 text-sm">
-            Track your wellbeing and academic progress
+            Welcome back {session.user.name}! Let&apos;s be happy.
           </p>
         </header>
         <section>
-          <Insights mood={mood} feedback={feedback} pleasant_score={pleasant_score}
- />
+
+          <Insights
+            mood={mood}
+            feedback={feedback}
+            pleasant_score={pleasant_score}
+          />
         </section>
 
         <section className="mb-6">
