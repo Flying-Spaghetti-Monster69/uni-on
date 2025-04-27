@@ -54,7 +54,7 @@ const WeWantYouOk: React.FC<WeWantYouOkProps> = ({ problematics }) => {
             alt={`${problematics} support`}
           />
           <p className="max-w-[228px] text-center text-[13px]">
-            Communicate with your university's wellness service by clicking{" "}
+            Communicate with your university&apos;s wellness service by clicking{" "}
             <a href="#" className="underline text-blue-600">
               here
             </a>
