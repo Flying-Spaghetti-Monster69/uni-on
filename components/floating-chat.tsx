@@ -72,7 +72,7 @@ export function FloatingChat({ userId }: { userId: string }) {
       {!isOpen && (
         <button
           onClick={() => setIsOpen(true)}
-          className="fixed bottom-20 right-4 z-50 cursor-pointer bg-tertiary-theme text-white rounded-full p-3 shadow-lg hover:bg-tertiary-theme/80 transition-all"
+          className="fixed bottom-10 right-4 z-50 cursor-pointer bg-tertiary-theme text-white rounded-full p-3 shadow-lg hover:bg-tertiary-theme/80 transition-all"
         >
           <MessageCircle className="h-6 w-6" />
           <span className="absolute -top-1 -right-1 h-3 w-3 bg-green-500 rounded-full animate-pulse"></span>
@@ -138,7 +138,7 @@ export function FloatingChat({ userId }: { userId: string }) {
                       <div
                         className={`max-w-[80%] rounded-lg px-3 py-2 ${
                           message.sender === "user"
-                            ? "bg-blue-600 text-white"
+                            ? "bg-primary-theme text-white"
                             : "bg-teal-100 text-gray-800"
                         }`}
                       >
@@ -182,7 +182,7 @@ export function FloatingChat({ userId }: { userId: string }) {
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
                     placeholder="Type your message..."
-                    className="flex-1 border-teal-200"
+                    className="flex-1 border-secundary-theme"
                     onKeyPress={(e) => e.key === "Enter" && handleSend()}
                   />
                   <Button
