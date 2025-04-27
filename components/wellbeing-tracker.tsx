@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import {
   Card,
   CardContent,
@@ -38,7 +38,7 @@ export function WellbeingTracker({ userId }: { userId: string }) {
   const [moodState, setMoodState] = useState<state>(state.ready);
   const [loading, setIsLoading] = useState(false);
 
-  async function getEntries() {
+  const getEntries = useCallback(async () => {
     try {
       const moods = await getMoodData(userId);
       setEntries(moods as DailyMood[]);
@@ -46,7 +46,7 @@ export function WellbeingTracker({ userId }: { userId: string }) {
     } catch (error) {
       console.log(error);
     }
-  }
+  }, [userId]);
 
   useEffect(() => {
     if (activeTab === "history") {
@@ -68,7 +68,7 @@ export function WellbeingTracker({ userId }: { userId: string }) {
     }).then(async () => {
       await getEntries();
       setMoodState(state.done);
-    })
+    });
   };
 
   function getCurrentDateString(date: Date): string {
@@ -120,7 +120,7 @@ export function WellbeingTracker({ userId }: { userId: string }) {
               min={1}
               max={10}
               step={1}
-              onValueChange={value => setMoodRating(value[0])}
+              onValueChange={(value) => setMoodRating(value[0])}
               className="mb-4"
             />
 
@@ -128,7 +128,7 @@ export function WellbeingTracker({ userId }: { userId: string }) {
               placeholder="How are you feeling today? Any specific challenges or achievements?"
               className="min-h-[80px] border-teal-200"
               value={notes}
-              onChange={e => setNotes(e.target.value)}
+              onChange={(e) => setNotes(e.target.value)}
             />
 
             <Button
