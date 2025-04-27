@@ -13,8 +13,6 @@ import { Slider } from "@/components/ui/slider";
 import { Textarea } from "@/components/ui/textarea";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { CalendarIcon, LineChart, Save, ChevronRight } from "lucide-react";
-import { authClient } from "@/utils/auth-client";
-import { useRouter } from "next/navigation";
 import { addMoodData, getMoodData } from "@/utils/actions";
 
 type DailyMood = {
@@ -32,7 +30,7 @@ enum state {
   done = "daily entry saved",
 }
 
-export function WellbeingTracker() {
+export function WellbeingTracker({ userId }: { userId: string }) {
   const [activeTab, setActiveTab] = useState("today");
   const [moodRating, setMoodRating] = useState(5);
   const [notes, setNotes] = useState("");
@@ -40,17 +38,12 @@ export function WellbeingTracker() {
   const [moodState, setMoodState] = useState<state>(state.ready);
   const [loading, setIsLoading] = useState(false);
 
-  const {
-    data: session,
-    isPending, //loading state
-    error, //error object
-  } = authClient.useSession();
   useEffect(() => {
     if (activeTab === "history") {
       setIsLoading(true);
       async function getEntries() {
         try {
-          const moods = await getMoodData(session?.user.id as string);
+          const moods = await getMoodData(userId);
           setEntries(moods as DailyMood[]);
           setIsLoading(false);
         } catch (error) {
@@ -59,17 +52,7 @@ export function WellbeingTracker() {
       }
       getEntries();
     }
-  }, [activeTab, session?.user.id]);
-  const router = useRouter();
-
-  if (isPending || !session?.user) {
-    return <p>loading...</p>;
-  }
-
-  if (error) {
-    router.push("/");
-    return <p>{error.message}</p>;
-  }
+  }, [activeTab, userId]);
 
   const getMoodEmoji = (rating: number) => {
     if (rating <= 3) return "😔";
@@ -78,7 +61,7 @@ export function WellbeingTracker() {
   };
 
   const handleEntry = async () => {
-    await addMoodData(session.user.id, {
+    await addMoodData(userId, {
       description: notes,
       mood: moodRating,
     });
