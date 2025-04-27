@@ -36,7 +36,8 @@ export default async function Home() {
           </p>
         </header>
         <section>
-          <Insights mood={mood} feedback={feedback} />
+          <Insights mood={mood} feedback={feedback} pleasant_score={pleasant_score}
+ />
         </section>
 
         <section className="mb-6">
