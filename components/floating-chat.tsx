@@ -20,7 +20,7 @@ export function FloatingChat({ userId }: { userId: string }) {
     {
       id: "welcome",
       content:
-        "Hi there! I'm your StudyWell assistant. How can I help you today with your studies or wellbeing?",
+        "Hi there! I'm UNI the deer, your assistant. How can I help you today with your studies or wellbeing?",
       sender: "bot",
       timestamp: new Date(),
     },
