@@ -39,9 +39,9 @@ const WeWantYouOk: React.FC<WeWantYouOkProps> = ({ problematics }) => {
     problematicsData[problematics];
 
   return (
-    <Card className="border-teal-200 shadow-md bg-white/90 backdrop-blur-sm mb-4">
+    <Card className="border-primary-theme shadow-md bg-white backdrop-blur-sm mb-4">
       <CardHeader className="pb-2">
-        <CardTitle className="text-teal-700 text-lg">
+        <CardTitle className="text-primary-theme text-lg">
           We want you to be fine
         </CardTitle>
         <CardDescription>{description}</CardDescription>
@@ -56,7 +56,7 @@ const WeWantYouOk: React.FC<WeWantYouOkProps> = ({ problematics }) => {
           />
           <p className="max-w-[228px] text-center text-[13px]">
             Communicate with your university&apos;s wellness service by clicking{" "}
-            <a href="#" className="underline text-blue-600">
+            <a href="#" className="underline text-tertiary-theme">
               here
             </a>
           </p>
@@ -71,7 +71,7 @@ const WeWantYouOk: React.FC<WeWantYouOkProps> = ({ problematics }) => {
           <p className="max-w-[228px] text-center text-[13px]">
             Explore external services for more personalized attention by
             clicking{" "}
-            <a href="#" className="underline text-blue-600">
+            <a href="#" className="underline text-tertiary-theme">
               here
             </a>
           </p>

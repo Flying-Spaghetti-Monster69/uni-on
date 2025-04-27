@@ -80,9 +80,9 @@ export function WellbeingTracker({ userId }: { userId: string }) {
   }
 
   return (
-    <Card className="border-teal-200 shadow-md bg-white/90 backdrop-blur-sm">
+    <Card className="border-primary-theme shadow-md bg-white backdrop-blur-sm">
       <CardHeader className="pb-2">
-        <CardTitle className="text-teal-700 text-xl">
+        <CardTitle className="text-primary-theme text-xl">
           Daily Wellbeing Check
         </CardTitle>
         <CardDescription>Track how you&apos;re feeling today</CardDescription>
@@ -93,23 +93,23 @@ export function WellbeingTracker({ userId }: { userId: string }) {
           value={activeTab}
           onValueChange={setActiveTab}
         >
-          <TabsList className="grid grid-cols-2 mb-4 bg-teal-100/50">
+          <TabsList className="grid grid-cols-2 mb-4 bg-tertiary-theme/50">
             <TabsTrigger
               value="today"
-              className="data-[state=active]:bg-teal-600 data-[state=active]:text-white"
+              className="data-[state=active]:bg-secundary-theme data-[state=active]:text-white"
             >
               Today&apos;s Entry
             </TabsTrigger>
             <TabsTrigger
               value="history"
-              className="data-[state=active]:bg-teal-600 data-[state=active]:text-white"
+              className="data-[state=active]:bg-secundary-theme data-[state=active]:text-white"
             >
               History
             </TabsTrigger>
           </TabsList>
 
           <TabsContent value="today" className="mt-0 space-y-4">
-            <div className="flex justify-between mb-1 text-sm text-teal-700">
+            <div className="flex justify-between mb-1 text-sm text-secundary-theme">
               <span>Mood</span>
               <span>
                 {getMoodEmoji(moodRating)} {moodRating}/10
@@ -126,7 +126,7 @@ export function WellbeingTracker({ userId }: { userId: string }) {
 
             <Textarea
               placeholder="How are you feeling today? Any specific challenges or achievements?"
-              className="min-h-[80px] border-teal-200"
+              className="min-h-[80px] border-secundary-theme"
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
             />
@@ -139,7 +139,8 @@ export function WellbeingTracker({ userId }: { userId: string }) {
                 setNotes("");
                 setMoodRating(5);
               }}
-              className="w-full bg-teal-600 hover:bg-teal-700"
+              className="w-full bg-secundary-theme hover:bg-secundary-theme/80 cursor-pointer
+              "
             >
               <Save className="mr-2 h-4 w-4" /> {moodState}
             </Button>
@@ -153,16 +154,16 @@ export function WellbeingTracker({ userId }: { userId: string }) {
                 entries.map((entry, index) => (
                   <div
                     key={index}
-                    className="p-3 rounded-lg bg-teal-50 border border-teal-100"
+                    className="p-3 rounded-lg bg-violet-50 border border-primary-theme"
                   >
                     <div className="flex justify-between items-center mb-2">
-                      <div className="flex items-center text-sm text-teal-700">
+                      <div className="flex items-center text-sm text-primary-theme">
                         <CalendarIcon className="h-3.5 w-3.5 mr-1" />
                         {getCurrentDateString(entry.created_At)}
                       </div>
                     </div>
                     <div className="grid grid-cols-3 gap-2 mb-2">
-                      <div className="text-center p-1 bg-white rounded border border-teal-100">
+                      <div className="text-center p-1 bg-white rounded border border-primary-theme">
                         <div className="text-sm font-medium">Mood</div>
                         <div>
                           {getMoodEmoji(entry.mood)} {entry.mood}/10

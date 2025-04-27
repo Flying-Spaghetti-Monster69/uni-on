@@ -12,7 +12,7 @@ const Insights = async ({
   mood,
   feedback,
   pleasant_score,
-  userName
+  userName,
 }: {
   mood: any;
   feedback: any;
@@ -34,9 +34,11 @@ const Insights = async ({
   const src = srcImage();
 
   return (
-    <Card className="border-teal-200 shadow-md mb-4 bg-white/90 backdrop-blur-sm">
+    <Card className="border-primary-theme shadow-md mb-4 bg-white backdrop-blur-sm">
       <CardHeader className="">
-        <CardTitle className="text-teal-700 text-xl">Hi {userName.split(" ").slice(0, 2).join(" ")}</CardTitle>
+        <CardTitle className="text-primary-theme text-xl">
+          Hi {userName.split(" ").slice(0, 2).join(" ")}
+        </CardTitle>
         <CardDescription>
           Here is your weekly AI generated report
         </CardDescription>
@@ -57,7 +59,7 @@ const Insights = async ({
           </div>
         </div>
         <div className="w-full flex items-center justify-center">
-          <p className="mt-2 text-teal-600 font-bold">
+          <p className="mt-2 text-secundary-theme font-bold">
             Mood: <span className="text-gray-500">{mood}</span>
           </p>
         </div>

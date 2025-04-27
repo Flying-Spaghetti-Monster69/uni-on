@@ -13,7 +13,7 @@ const GoogleButton = () => {
           callbackURL: "/user/main",
         });
       }}
-      className="w-full bg-teal-600 hover:bg-teal-700"
+      className="w-full bg-primary-theme hover:bg-primary-theme/80 text-white cursor-pointer"
     >
       {" "}
       <svg

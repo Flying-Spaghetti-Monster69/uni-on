@@ -72,7 +72,7 @@ export function FloatingChat({ userId }: { userId: string }) {
       {!isOpen && (
         <button
           onClick={() => setIsOpen(true)}
-          className="fixed bottom-20 right-4 z-50 bg-blue-600 text-white rounded-full p-3 shadow-lg hover:bg-blue-700 transition-all"
+          className="fixed bottom-20 right-4 z-50 cursor-pointer bg-tertiary-theme text-white rounded-full p-3 shadow-lg hover:bg-tertiary-theme/80 transition-all"
         >
           <MessageCircle className="h-6 w-6" />
           <span className="absolute -top-1 -right-1 h-3 w-3 bg-green-500 rounded-full animate-pulse"></span>
@@ -89,7 +89,7 @@ export function FloatingChat({ userId }: { userId: string }) {
           }`}
         >
           {/* Chat header */}
-          <div className="bg-gradient-to-r from-teal-600 to-blue-600 text-white p-3 rounded-t-xl flex justify-between items-center">
+          <div className="bg-gradient-to-r from-primary-theme to-tertiary-theme text-white p-3 rounded-t-xl flex justify-between items-center">
             <div className="flex items-center">
               {!isMinimized && <MessageCircle className="h-5 w-5 mr-2" />}
               <h3 className="font-medium">StudyWell Support</h3>
@@ -188,7 +188,7 @@ export function FloatingChat({ userId }: { userId: string }) {
                   <Button
                     onClick={handleSend}
                     disabled={input.trim() === "" || isTyping}
-                    className="bg-blue-600 hover:bg-blue-700 h-9 w-9 p-0"
+                    className="bg-tertiary-theme hover:bg-tertiary-theme h-9 w-9 p-0"
                   >
                     <Send className="h-4 w-4" />
                   </Button>

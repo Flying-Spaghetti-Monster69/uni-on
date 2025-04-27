@@ -1,6 +1,5 @@
 import { WellbeingTracker } from "@/components/wellbeing-tracker";
 import { FloatingChat } from "@/components/floating-chat";
-import { BottomNav } from "@/components/bottom-nav";
 import { auth } from "@/utils/auth"; // path to your Better Auth server instance
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
@@ -26,7 +25,7 @@ export default async function Home() {
   const { mood, feedback, problem_type, pleasant_score } = insights;
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-teal-50 to-blue-50 pb-24">
+    <main className="min-h-screen bg-gradient-to-b from-purple-50 to-violet-50 pb-6">
       <div className="container max-w-md mx-auto px-4 py-6">
         <section>
           <Insights
@@ -49,7 +48,6 @@ export default async function Home() {
       </div>
 
       <FloatingChat userId={session.user.id} />
-      <BottomNav />
     </main>
   );
 }
