@@ -132,7 +132,7 @@ export function WellbeingTracker({ userId }: { userId: string }) {
             />
 
             <Button
-              disabled={state.loading === moodState}
+              disabled={moodState !== state.ready}
               onClick={() => {
                 setMoodState(state.loading);
                 handleEntry();
