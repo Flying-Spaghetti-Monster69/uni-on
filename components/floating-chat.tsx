@@ -92,7 +92,7 @@ export function FloatingChat({ userId }: { userId: string }) {
           <div className="bg-gradient-to-r from-primary-theme to-tertiary-theme text-white p-3 rounded-t-xl flex justify-between items-center">
             <div className="flex items-center">
               {!isMinimized && <MessageCircle className="h-5 w-5 mr-2" />}
-              <h3 className="font-medium">StudyWell Support</h3>
+              <h3 className="font-medium">UNI Support</h3>
             </div>
             <div className="flex items-center space-x-1">
               <Button
