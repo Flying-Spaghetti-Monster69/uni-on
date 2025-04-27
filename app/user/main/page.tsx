@@ -1,5 +1,4 @@
 import { WellbeingTracker } from "@/components/wellbeing-tracker";
-import { AcademicTracker } from "@/components/academic-tracker";
 import { FloatingChat } from "@/components/floating-chat";
 import { BottomNav } from "@/components/bottom-nav";
 import { auth } from "@/utils/auth"; // path to your Better Auth server instance
