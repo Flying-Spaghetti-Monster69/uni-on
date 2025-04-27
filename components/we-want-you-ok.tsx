@@ -35,10 +35,11 @@ const problematicsData = {
 };
 
 const WeWantYouOk: React.FC<WeWantYouOkProps> = ({ problematics }) => {
-    const { description, college_image, external_image } = problematicsData[problematics];
+  const { description, college_image, external_image } =
+    problematicsData[problematics];
 
   return (
-    <Card className="border-teal-200 shadow-md bg-white/90 backdrop-blur-sm">
+    <Card className="border-teal-200 shadow-md bg-white/90 backdrop-blur-sm mb-4">
       <CardHeader className="pb-2">
         <CardTitle className="text-teal-700 text-lg">
           We want you to be fine

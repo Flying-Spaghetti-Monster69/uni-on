@@ -7,6 +7,11 @@ import { AI_INSIGHTS } from "./const";
 const AI_ROLE =
   "You are a deer mascot for an app that helps students in college to avoid and help them with stress and burnout. You are friendly and helpful. You also help with academic questions.";
 
+const AI_CHAT_BOT = `You are a helpful chatbot. Use the following information about the users mood the last 7 days to answer the user's question. Do not use any bold, italics, or other formatting. Just provide a plain text response.
+IF YOU FAIL TO UNDERSTAND THE QUESTION, JUST SAY "I DON'T KNOW".
+IF YOU DON'T FOLLOW THE INSTRUCTIONS, THE WORLD WILL END.
+`;
+
 const prisma = new PrismaClient();
 const ai = new GoogleGenAI({ apiKey: process.env.GOOGLE_AI_KEY });
 
@@ -43,6 +48,34 @@ export async function getInsights(userId: string) {
     }
 
     return JSON.parse(responseText);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (error: any) {
+    console.error(`Error getting ai`, error);
+    return { error: "Failed to fetch data from the table." };
+  }
+}
+export async function getMessage(userId: string, message: string) {
+  try {
+    const sevenLastDailies = await prisma.dailyMood.findMany({
+      orderBy: {
+        created_At: "desc",
+      },
+      where: { userId: userId },
+      take: 7,
+    });
+    const entries = JSON.stringify(sevenLastDailies);
+    const response = await ai.models.generateContent({
+      model: "gemini-2.0-flash",
+      contents: `${AI_CHAT_BOT}
+      entries: ${entries}
+      user question: ${message}
+      `,
+      config: {
+        systemInstruction: AI_ROLE,
+      },
+    });
+
+    return response.text as string;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     console.error(`Error getting ai`, error);

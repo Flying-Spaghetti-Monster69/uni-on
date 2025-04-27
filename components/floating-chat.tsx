@@ -1,44 +1,46 @@
-"use client"
+"use client";
 
-import { useState, useRef, useEffect } from "react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { MessageCircle, X, Send, Minimize2, Maximize2 } from "lucide-react"
+import { useState, useRef, useEffect } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { MessageCircle, X, Send, Minimize2, Maximize2 } from "lucide-react";
+import { getMessage } from "@/utils/actions";
 
 type Message = {
-  id: string
-  content: string
-  sender: "user" | "bot"
-  timestamp: Date
-}
+  id: string;
+  content: string;
+  sender: "user" | "bot";
+  timestamp: Date;
+};
 
-export function FloatingChat() {
-  const [isOpen, setIsOpen] = useState(false)
-  const [isMinimized, setIsMinimized] = useState(false)
+export function FloatingChat({ userId }: { userId: string }) {
+  const [isOpen, setIsOpen] = useState(false);
+  const [isMinimized, setIsMinimized] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
     {
       id: "welcome",
-      content: "Hi there! I'm your StudyWell assistant. How can I help you today with your studies or wellbeing?",
+      content:
+        "Hi there! I'm your StudyWell assistant. How can I help you today with your studies or wellbeing?",
       sender: "bot",
       timestamp: new Date(),
     },
-  ])
-  const [input, setInput] = useState("")
-  const [isTyping, setIsTyping] = useState(false)
-  const messagesEndRef = useRef<HTMLDivElement>(null)
+  ]);
+  const [input, setInput] = useState("");
+  const [isTyping, setIsTyping] = useState(false);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (isOpen && !isMinimized) {
-      scrollToBottom()
+      scrollToBottom();
     }
-  }, [messages, isOpen, isMinimized])
+  }, [messages, isOpen, isMinimized]);
 
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
-  }
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
 
-  const handleSend = () => {
-    if (input.trim() === "") return
+  const handleSend = async () => {
+    if (input.trim() === "") return;
 
     // Add user message
     const userMessage: Message = {
@@ -46,35 +48,23 @@ export function FloatingChat() {
       content: input,
       sender: "user",
       timestamp: new Date(),
-    }
+    };
 
-    setMessages((prev) => [...prev, userMessage])
-    setInput("")
-    setIsTyping(true)
+    setMessages((prev) => [...prev, userMessage]);
+    setInput("");
+    setIsTyping(true);
 
-    // Simulate bot response
-    setTimeout(() => {
-      const botResponses = [
-        "I understand how you feel. University can be stressful at times. Have you tried any relaxation techniques?",
-        "That's a great question about your studies. I'd recommend breaking down the material into smaller chunks and using active recall techniques.",
-        "It sounds like you're feeling overwhelmed. Remember to take breaks and practice self-care. Your mental health is just as important as your studies.",
-        "I can help you organize your study schedule. What subjects are you finding most challenging right now?",
-        "Have you tried the Pomodoro technique? It's 25 minutes of focused study followed by a 5-minute break. Many students find it helpful for maintaining concentration.",
-      ]
+    const response = await getMessage(userId, userMessage.content);
 
-      const randomResponse = botResponses[Math.floor(Math.random() * botResponses.length)]
-
-      const botMessage: Message = {
-        id: `bot-${Date.now()}`,
-        content: randomResponse,
-        sender: "bot",
-        timestamp: new Date(),
-      }
-
-      setMessages((prev) => [...prev, botMessage])
-      setIsTyping(false)
-    }, 1500)
-  }
+    const botMessage: Message = {
+      id: `bot-${Date.now()}`,
+      content: response as string,
+      sender: "bot",
+      timestamp: new Date(),
+    };
+    setMessages((prev) => [...prev, botMessage]);
+    setIsTyping(false);
+  };
 
   return (
     <>
@@ -111,14 +101,18 @@ export function FloatingChat() {
                 onClick={() => setIsMinimized(!isMinimized)}
                 className="h-7 w-7 text-white hover:bg-white/20"
               >
-                {isMinimized ? <Maximize2 className="h-4 w-4" /> : <Minimize2 className="h-4 w-4" />}
+                {isMinimized ? (
+                  <Maximize2 className="h-4 w-4" />
+                ) : (
+                  <Minimize2 className="h-4 w-4" />
+                )}
               </Button>
               <Button
                 variant="ghost"
                 size="icon"
                 onClick={() => {
-                  setIsOpen(false)
-                  setIsMinimized(false)
+                  setIsOpen(false);
+                  setIsMinimized(false);
                 }}
                 className="h-7 w-7 text-white hover:bg-white/20"
               >
@@ -135,16 +129,25 @@ export function FloatingChat() {
                   {messages.map((message) => (
                     <div
                       key={message.id}
-                      className={`flex ${message.sender === "user" ? "justify-end" : "justify-start"}`}
+                      className={`flex ${
+                        message.sender === "user"
+                          ? "justify-end"
+                          : "justify-start"
+                      }`}
                     >
                       <div
                         className={`max-w-[80%] rounded-lg px-3 py-2 ${
-                          message.sender === "user" ? "bg-blue-600 text-white" : "bg-teal-100 text-gray-800"
+                          message.sender === "user"
+                            ? "bg-blue-600 text-white"
+                            : "bg-teal-100 text-gray-800"
                         }`}
                       >
                         <p className="text-sm">{message.content}</p>
                         <p className="text-xs opacity-70 mt-1">
-                          {message.timestamp.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
+                          {message.timestamp.toLocaleTimeString([], {
+                            hour: "2-digit",
+                            minute: "2-digit",
+                          })}
                         </p>
                       </div>
                     </div>
@@ -196,5 +199,5 @@ export function FloatingChat() {
         </div>
       )}
     </>
-  )
+  );
 }

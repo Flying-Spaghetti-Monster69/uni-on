@@ -36,7 +36,6 @@ export default async function Home() {
           </p>
         </header>
         <section>
-
           <Insights
             mood={mood}
             feedback={feedback}
@@ -52,7 +51,9 @@ export default async function Home() {
         </section>
 
         <section>
-          {pleasant_score < 6 && problem_type !== "none" && <WeWantYouOk problematics={problem_type}/>}
+          {pleasant_score < 6 && problem_type !== "none" && (
+            <WeWantYouOk problematics={problem_type} />
+          )}
         </section>
 
         <section>
@@ -64,7 +65,7 @@ export default async function Home() {
         </section>
       </div>
 
-      <FloatingChat />
+      <FloatingChat userId={session.user.id} />
       <BottomNav />
     </main>
   );
