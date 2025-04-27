@@ -5,8 +5,9 @@ import { BottomNav } from "@/components/bottom-nav";
 import { auth } from "@/utils/auth"; // path to your Better Auth server instance
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
-import Insights from "@/components/insights";
 import { getInsights } from "@/utils/actions";
+import Insights from "@/components/insights";
+import WeWantYouOk from "@/components/we-want-you-ok";
 
 export default async function Home() {
   const session = await auth.api.getSession({
@@ -23,7 +24,6 @@ export default async function Home() {
     redirect("/");
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { mood, feedback, problem_type, pleasant_score } = insights;
 
   return (
@@ -44,6 +44,10 @@ export default async function Home() {
             Daily Wellbeing Check
           </h2>
           <WellbeingTracker userId={session.user.id} />
+        </section>
+
+        <section>
+          {pleasant_score < 6 && problem_type !== "none" && <WeWantYouOk problematics={problem_type}/>}
         </section>
 
         <section>
