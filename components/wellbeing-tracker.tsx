@@ -85,6 +85,14 @@ export function WellbeingTracker() {
     setMoodState(state.done);
   };
 
+  function getCurrentDateString(date: Date): string {
+    const day = String(date.getDate()).padStart(2, "0");
+    const month = String(date.getMonth() + 1).padStart(2, "0"); // Month is 0-indexed
+    const year = date.getFullYear();
+
+    return `${day}-${month}-${year}`;
+  }
+
   return (
     <Card className="border-teal-200 shadow-md bg-white/90 backdrop-blur-sm">
       <CardHeader className="pb-2">
@@ -162,7 +170,7 @@ export function WellbeingTracker() {
                     <div className="flex justify-between items-center mb-2">
                       <div className="flex items-center text-sm text-teal-700">
                         <CalendarIcon className="h-3.5 w-3.5 mr-1" />
-                        {entry.created_At.getFullYear()}
+                        {getCurrentDateString(entry.created_At)}
                       </div>
                       <Button
                         variant="ghost"
