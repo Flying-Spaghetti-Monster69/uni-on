@@ -12,7 +12,7 @@ import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
 import { Textarea } from "@/components/ui/textarea";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { CalendarIcon, LineChart, Save, ChevronRight } from "lucide-react";
+import { CalendarIcon, Save } from "lucide-react";
 import { addMoodData, getMoodData } from "@/utils/actions";
 
 type DailyMood = {
@@ -53,7 +53,7 @@ export function WellbeingTracker({ userId }: { userId: string }) {
       setIsLoading(true);
       getEntries();
     }
-  }, [activeTab, userId]);
+  }, [activeTab, getEntries, userId]);
 
   const getMoodEmoji = (rating: number) => {
     if (rating <= 3) return "😔";
