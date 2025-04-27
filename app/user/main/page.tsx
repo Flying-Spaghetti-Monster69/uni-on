@@ -30,6 +30,7 @@ export default async function Home() {
     <main className="min-h-screen bg-gradient-to-b from-teal-50 to-blue-50 pb-24">
       <div className="container max-w-md mx-auto px-4 py-6">
         <section>
+
           <Insights
             mood={mood}
             feedback={feedback}
