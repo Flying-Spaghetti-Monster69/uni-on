@@ -12,14 +12,14 @@ const ai = new GoogleGenAI({ apiKey: process.env.GOOGLE_AI_KEY });
 
 export async function getInsights(userId: string) {
   try {
-    const fiveLastDailies = await prisma.dailyMood.findMany({
+    const sevenLastDailies = await prisma.dailyMood.findMany({
       orderBy: {
         created_At: "desc",
       },
       where: { userId: userId },
-      take: 5,
+      take: 7,
     });
-    const entries = JSON.stringify(fiveLastDailies);
+    const entries = JSON.stringify(sevenLastDailies);
     const response = await ai.models.generateContent({
       model: "gemini-2.0-flash",
       contents: `${AI_INSIGHTS}

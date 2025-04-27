@@ -5,6 +5,8 @@ import { BottomNav } from "@/components/bottom-nav";
 import { auth } from "@/utils/auth"; // path to your Better Auth server instance
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
+import Insights from "@/components/insights";
+import { getInsights } from "@/utils/actions";
 
 export default async function Home() {
   const session = await auth.api.getSession({
@@ -15,6 +17,15 @@ export default async function Home() {
     redirect("/");
   }
 
+  const insights = await getInsights(session.user.id);
+
+  if (insights.error) {
+    redirect("/");
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { mood, feedback, problem_type, pleasant_score } = insights;
+
   return (
     <main className="min-h-screen bg-gradient-to-b from-teal-50 to-blue-50 pb-24">
       <div className="container max-w-md mx-auto px-4 py-6">
@@ -24,6 +35,9 @@ export default async function Home() {
             Track your wellbeing and academic progress
           </p>
         </header>
+        <section>
+          <Insights mood={mood} feedback={feedback} />
+        </section>
 
         <section className="mb-6">
           <h2 className="text-xl font-semibold text-teal-700 mb-3">
@@ -36,6 +50,7 @@ export default async function Home() {
           <h2 className="text-xl font-semibold text-teal-700 mb-3">
             Academic Progress
           </h2>
+
           <AcademicTracker />
         </section>
       </div>

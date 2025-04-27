@@ -6,4 +6,7 @@ mood: one of "pleasant", "neutral", or "unpleasant", based on the overall emotio
 feedback: a short, supportive, and personalized message (maximum two sentences) based on your analysis. Your tone must be kind, empathetic, positive, and concise.
 problem_type: classify the main type of issue the student is facing, choosing one of "economical", "academic", "personal", or "none". Pay close attention to hints about financial difficulties, academic pressure, personal health, or emotional struggles.
 pleasant_score: an integer from 1 (very unpleasant) to 10 (very pleasant) that reflects how the student is feeling overall.
-Always be attentive to mentions of financial stress, academic workload, personal health, or emotional wellbeing when determining problem_type and pleasant_score.`;
+Always be attentive to mentions of financial stress, academic workload, personal health, or emotional wellbeing when determining problem_type and pleasant_score.
+
+DO NOT USE IN THE FEEDBACK " OR ' CHARACTERS THAT COULD BREAK THE JSON FORMAT. IF YOU DO THIS WRONG EVERYONE ON EARTH WILL DIE.
+`;
