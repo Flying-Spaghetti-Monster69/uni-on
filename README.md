@@ -1,36 +1,109 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# UniOn - Student Wellbeing & Academic Tracker
+
+UniOn is a comprehensive web application designed to help college students manage their academic progress while maintaining their mental wellbeing. The platform provides an integrated approach to student success by combining academic tracking with mental health monitoring.
+
+## Features
+
+### Wellbeing Tracking
+
+- Daily mood tracking and journaling
+- AI-powered insights and personalized feedback
+- Historical mood data visualization
+- Proactive support suggestions based on mood patterns
+
+### Academic Management
+
+- Course and assignment tracking
+- Grade monitoring and performance analytics
+- Class notes organization
+- Visual progress indicators
+
+### Smart Support System
+
+- AI-powered chatbot for immediate support
+- Customized recommendations based on student's state
+- Integration with university resources
+- Crisis prevention through early warning indicators
+
+## Tech Stack
+
+- **Frontend**: Next.js 15, React, TypeScript, Tailwind CSS
+- **Backend**: Next.js API Routes, Prisma ORM
+- **Database**: PostgreSQL
+- **Authentication**: BetterAuth with Google OAuth
+- **AI Integration**: Google Gemini AI
+- **Styling**: Tailwind CSS, shadcn/ui components
 
 ## Getting Started
 
-First, run the development server:
+1. Clone the repository:
+
+```bash
+git clone https://github.com/yourusername/uni-on.git
+cd uni-on
+```
+
+2. Install dependencies:
+
+```bash
+npm install
+```
+
+3. Set up environment variables:
+
+```bash
+cp .env.example .env
+```
+
+Fill in your environment variables:
+
+```env
+DATABASE_URL="postgresql://..."
+GOOGLE_CLIENT_ID="your_google_client_id"
+GOOGLE_CLIENT_SECRET="your_google_client_secret"
+GOOGLE_AI_KEY="your_gemini_ai_key"
+```
+
+4. Run database migrations:
+
+```bash
+npx prisma migrate dev
+```
+
+5. Start the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Visit `http://localhost:3000` to see the application.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Project Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+uni-on/
+├── app/                  # Next.js app router pages
+├── components/          # React components
+├── utils/              # Utility functions and helpers
+├── prisma/             # Database schema and migrations
+└── public/             # Static assets
+```
 
-## Learn More
+## Contributing
 
-To learn more about Next.js, take a look at the following resources:
+We welcome contributions! Please see our contributing guidelines for more details.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## License
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+This project is licensed under the MIT License - see the LICENSE file for details.
 
-## Deploy on Vercel
+## Support
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+For support, please open an issue in the GitHub repository or contact the maintainers.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Acknowledgments
+
+- Next.js team for the fantastic framework
+- Vercel for hosting and deployment
+- Google for AI capabilities
+- All contributors and supporters
