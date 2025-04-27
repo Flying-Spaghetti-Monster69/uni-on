@@ -12,7 +12,7 @@ import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
 import { Textarea } from "@/components/ui/textarea";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { CalendarIcon, LineChart, Save, ChevronRight } from "lucide-react";
+import { CalendarIcon, Save } from "lucide-react";
 import { addMoodData, getMoodData } from "@/utils/actions";
 
 type DailyMood = {
@@ -38,21 +38,22 @@ export function WellbeingTracker({ userId }: { userId: string }) {
   const [moodState, setMoodState] = useState<state>(state.ready);
   const [loading, setIsLoading] = useState(false);
 
+  async function getEntries() {
+    try {
+      const moods = await getMoodData(userId);
+      setEntries(moods as DailyMood[]);
+      setIsLoading(false);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   useEffect(() => {
     if (activeTab === "history") {
       setIsLoading(true);
-      async function getEntries() {
-        try {
-          const moods = await getMoodData(userId);
-          setEntries(moods as DailyMood[]);
-          setIsLoading(false);
-        } catch (error) {
-          console.log(error);
-        }
-      }
       getEntries();
     }
-  }, [activeTab, userId]);
+  }, [activeTab, getEntries, userId]);
 
   const getMoodEmoji = (rating: number) => {
     if (rating <= 3) return "😔";
@@ -60,12 +61,14 @@ export function WellbeingTracker({ userId }: { userId: string }) {
     return "😊";
   };
 
-  const handleEntry = async () => {
-    await addMoodData(userId, {
+  const handleEntry = () => {
+    addMoodData(userId, {
       description: notes,
       mood: moodRating,
-    });
-    setMoodState(state.done);
+    }).then(async () => {
+      await getEntries();
+      setMoodState(state.done);
+    })
   };
 
   function getCurrentDateString(date: Date): string {
@@ -79,8 +82,8 @@ export function WellbeingTracker({ userId }: { userId: string }) {
   return (
     <Card className="border-teal-200 shadow-md bg-white/90 backdrop-blur-sm">
       <CardHeader className="pb-2">
-        <CardTitle className="text-teal-700 text-lg">
-          Psychological Wellbeing
+        <CardTitle className="text-teal-700 text-xl">
+          Daily Wellbeing Check
         </CardTitle>
         <CardDescription>Track how you&apos;re feeling today</CardDescription>
       </CardHeader>
@@ -117,7 +120,7 @@ export function WellbeingTracker({ userId }: { userId: string }) {
               min={1}
               max={10}
               step={1}
-              onValueChange={(value) => setMoodRating(value[0])}
+              onValueChange={value => setMoodRating(value[0])}
               className="mb-4"
             />
 
@@ -125,14 +128,16 @@ export function WellbeingTracker({ userId }: { userId: string }) {
               placeholder="How are you feeling today? Any specific challenges or achievements?"
               className="min-h-[80px] border-teal-200"
               value={notes}
-              onChange={(e) => setNotes(e.target.value)}
+              onChange={e => setNotes(e.target.value)}
             />
 
             <Button
-              disabled={moodState !== state.ready}
+              disabled={state.loading === moodState}
               onClick={() => {
                 setMoodState(state.loading);
                 handleEntry();
+                setNotes("");
+                setMoodRating(5);
               }}
               className="w-full bg-teal-600 hover:bg-teal-700"
             >
@@ -155,13 +160,6 @@ export function WellbeingTracker({ userId }: { userId: string }) {
                         <CalendarIcon className="h-3.5 w-3.5 mr-1" />
                         {getCurrentDateString(entry.created_At)}
                       </div>
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        className="h-6 px-2 text-xs text-teal-700"
-                      >
-                        Details <ChevronRight className="ml-1 h-3 w-3" />
-                      </Button>
                     </div>
                     <div className="grid grid-cols-3 gap-2 mb-2">
                       <div className="text-center p-1 bg-white rounded border border-teal-100">
@@ -177,16 +175,6 @@ export function WellbeingTracker({ userId }: { userId: string }) {
                   </div>
                 ))
               )}
-            </div>
-
-            <div className="mt-3 text-center">
-              <Button
-                variant="outline"
-                size="sm"
-                className="text-teal-700 border-teal-200"
-              >
-                <LineChart className="mr-1 h-3.5 w-3.5" /> View Trends
-              </Button>
             </div>
           </TabsContent>
         </Tabs>
