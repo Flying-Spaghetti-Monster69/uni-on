@@ -37,7 +37,7 @@ const Insights = async ({
         <CardTitle className="text-teal-700 text-lg">Weekly Insights</CardTitle>
         <CardDescription>Your AI generated report</CardDescription>
       </CardHeader>
-      <CardContent className="flex flex-row items-center justify-center h-full p-5 gap-4 text-center text-gray-500">
+      <CardContent className="flex flex-row items-center justify-center h-full px-5 pb-4 gap-4 text-center text-gray-500">
         <div>
           <p className="text-md font-semibold">{feedback}</p>
           <p className="mt-2 text-teal-600 font-bold">
